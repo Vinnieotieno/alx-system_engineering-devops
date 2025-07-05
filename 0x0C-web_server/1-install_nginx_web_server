@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+# Installs nginx and configures default page
+
+apt-get update -y
+apt-get install nginx -y
+
+echo "Hello World!" > /var/www/html/index.html
+
+# Start nginx without systemctl
+service nginx start
