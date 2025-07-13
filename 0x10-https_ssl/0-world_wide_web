@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+domain=$1
+subdomain=$2
+
+print_dns_record() {
+    local sub=$1
+    result=$(dig "${sub}.${domain}" +short | head -n 1)
+    if [[ -n "$result" ]]; then
+        echo "The subdomain $sub is a A record and points to $result"
+    else
+        echo "The subdomain $sub does not exist."
+    fi
+}
+
+if [ -z "$subdomain" ]; then
+    for sub in www lb-01 web-01 web-02; do
+        print_dns_record $sub
+    done
+else
+    print_dns_record $subdomain
+fi
